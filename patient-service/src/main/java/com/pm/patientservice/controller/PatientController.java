@@ -7,7 +7,9 @@ import com.pm.patientservice.mapper.PatientMapper;
 import com.pm.patientservice.model.Patient;
 import com.pm.patientservice.service.PatientService;
 import jakarta.validation.Valid;
+import jakarta.validation.groups.Default;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.*;
@@ -24,27 +26,28 @@ public class PatientController {
         this.patientService = patientService;
     }
 
-   @GetMapping
-    public ResponseEntity<List<PatientResponseDTO>> getPatients(){
+    @GetMapping
+    public ResponseEntity<List<PatientResponseDTO>> getPatients() {
 
         List<PatientResponseDTO> patients = patientService.getPatients();
         return ResponseEntity.ok().body(patients);
 
-   }
+    }
 
-   @PostMapping()
-    public ResponseEntity<PatientResponseDTO> createPatient(@Valid @RequestBody PatientRequestDTO patientRequestDTO){
+    @PostMapping()
+    public ResponseEntity<PatientResponseDTO> createPatient(@Valid @RequestBody PatientRequestDTO patientRequestDTO) {
 
-        PatientResponseDTO responseDTO= patientService.createPatient(patientRequestDTO);
+        PatientResponseDTO responseDTO = patientService.createPatient(patientRequestDTO);
 
-        return  ResponseEntity.ok().body(responseDTO);
-   }
+        return ResponseEntity.ok().body(responseDTO);
+    }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<PatientResponseDTO> updatePatient(@PathVariable UUID id,  @RequestBody PatientRequestDTO patientRequestDTO){
+    public ResponseEntity<PatientResponseDTO> updatePatient(@PathVariable UUID id,
+                                  @Validated({Default.class}) @RequestBody PatientRequestDTO patientRequestDTO) {
 
-        PatientResponseDTO updatedResponseDTO = patientService.updatePatient(id,patientRequestDTO);
+        PatientResponseDTO updatedResponseDTO = patientService.updatePatient(id, patientRequestDTO);
 
         return ResponseEntity.ok().body(updatedResponseDTO);
     }

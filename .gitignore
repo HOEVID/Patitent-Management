@@ -1,14 +1,54 @@
-# IntelliJ
-.idea/
-*.iml
+# =========================
+# Java compiled files
+# =========================
+*.class
 
-# Maven / Gradle
+# =========================
+# Package files
+# =========================
+*.jar
+*.war
+*.ear
+*.nar
+*.zip
+*.tar.gz
+*.rar
+
+# =========================
+# Build folders (Maven/Gradle)
+# =========================
 **/target/
 **/build/
 
+# =========================
 # Logs
+# =========================
 *.log
 
-# OS files
+# =========================
+# IDE files
+# =========================
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# =========================
+# OS-specific files
+# =========================
 .DS_Store
 Thumbs.db
+
+# =========================
+# JVM crash logs
+# =========================
+hs_err_pid*
+replay_pid*
+
+# =========================
+# Other temp files
+# =========================
+*.tmp
+*.bak
+*.swp
