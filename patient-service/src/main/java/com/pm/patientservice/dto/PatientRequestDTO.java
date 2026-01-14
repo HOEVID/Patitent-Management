@@ -1,5 +1,6 @@
 package com.pm.patientservice.dto;
 
+import com.pm.patientservice.dto.validators.CreatePatientValidationGroup;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
@@ -14,7 +15,7 @@ public class PatientRequestDTO {
     String name;
     @NotBlank(message = "dateOfBirth cant be blank")
     String dateOfBirth;
-    @NotBlank(message = "Registered Date cant be blank")
+    @NotBlank(groups = CreatePatientValidationGroup.class, message = "Registered Date cant be blank")
     String registeredDate;
 
 
