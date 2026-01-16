@@ -1,13 +1,13 @@
-package com.pm.bllingservice;
+package com.pm.billingservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BllingServiceApplication {
+public class BillingServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BllingServiceApplication.class, args);
+        SpringApplication.run(BillingServiceApplication.class, args);
     }
 
 }
