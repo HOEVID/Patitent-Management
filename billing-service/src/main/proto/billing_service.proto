@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+package billing;
+
 //Spilling req and response to diff files
 option  java_multiple_files = true;
 option java_package="billing";

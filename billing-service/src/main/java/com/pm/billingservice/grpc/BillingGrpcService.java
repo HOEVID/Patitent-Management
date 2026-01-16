@@ -1,4 +1,4 @@
-package com.pm.bllingservice.grpc;
+package com.pm.billingservice.grpc;
 
 import billing.BillingRequest;
 import billing.BillingResponse;
