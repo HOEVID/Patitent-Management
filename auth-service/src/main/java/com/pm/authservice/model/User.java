@@ -19,7 +19,7 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private String roles;
+    private String role;
 
     public UUID getId() {
         return id;
@@ -46,10 +46,10 @@ public class User {
     }
 
     public String getRoles() {
-        return roles;
+        return role;
     }
 
-    public void setRoles(String roles) {
-        this.roles = roles;
+    public void setRoles(String role) {
+        this.role = role;
     }
 }

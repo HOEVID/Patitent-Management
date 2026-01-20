@@ -16,6 +16,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
                 .csrf(AbstractHttpConfigurer::disable);
+        return http.build();
     }
 
         @Bean
@@ -24,4 +25,4 @@ public class SecurityConfig {
             return new BCryptPasswordEncoder();
         }
     }
-}
+
