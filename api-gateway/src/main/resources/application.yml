@@ -34,4 +34,4 @@ spring:
           predicates:
             - Path=/api-docs/auth
           filters:
-            - RewritePath=/api-docs/auth,/v3/api-doc
+            - RewritePath=/api-docs/auth,/v3/api-docs
