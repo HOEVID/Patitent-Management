@@ -176,6 +176,7 @@ Map<String,String> additionalEnvVars){
                                             .removalPolicy(RemovalPolicy.DESTROY)
                                             .retention(RetentionDays.ONE_DAY)
                                             .build())
+                                    .streamPrefix(imageName)
                             .build()));
 
 
@@ -187,7 +188,7 @@ Map<String,String> additionalEnvVars){
          envVars.putAll(additionalEnvVars);
      }
      if(db != null){
-         envVars.put("SPRING_DATASOURCE_URL","jdbc:postgresql://%s:%s/%s-db",formatted(
+         envVars.put("SPRING_DATASOURCE_URL","jdbc:postgresql://%s:%s/%s-db".formatted(
                  db.getDbInstanceEndpointAddress(),
                  db.getDbInstanceEndpointPort(),
                  imageName
