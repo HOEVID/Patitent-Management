@@ -3,6 +3,8 @@ import software.amazon.awscdk.*;
 import software.amazon.awscdk.services.ec2.*;
 import software.amazon.awscdk.services.ec2.InstanceType;
 
+import software.amazon.awscdk.services.ecs.CloudMapNamespaceOptions;
+import software.amazon.awscdk.services.ecs.Cluster;
 import software.amazon.awscdk.services.msk.CfnCluster;
 import software.amazon.awscdk.services.rds.*;
 import software.amazon.awscdk.services.route53.CfnHealthCheck;
@@ -13,6 +15,7 @@ public class LocalStack extends Stack {
 
     //creating vpc
     private final Vpc vpc;
+     private final Cluster ecsCluster;
 
     DatabaseInstance authServiceDb ;
 
@@ -34,6 +37,7 @@ public class LocalStack extends Stack {
         this.authDbHealthCheck= createDbHealthCheck(authServiceDb,"AuthServiceDBHealthCheck");
         this.patientDbHealthCheck = createDbHealthCheck(patientServiceDb,"PatientServiceDBHealthCheck");
         this.mskCluster= createMskCluster();
+        this.ecsCluster = createEcsCluster();
     }
 
     private Vpc createVpc(){
@@ -85,6 +89,13 @@ private CfnCluster createMskCluster(){
                  .brokerAzDistribution("DEFAULT").build())
          .build();
 
+}
+//auth-service.patient-management.local
+private Cluster createEcsCluster(){
+        return Cluster.Builder.create(this,"PatientManagementCluster")
+                .vpc(vpc)
+                .defaultCloudMapNamespace(CloudMapNamespaceOptions.builder().name("patient-management.local").build())
+                .build();
 }
     public static void main(final String[] args){
 
