@@ -33,8 +33,11 @@ public class LocalStack extends Stack {
     CfnCluster mskCluster ;
     FargateService authService ;
 
+    FargateService billingService;
 
+    FargateService analyticsService;
 
+    FargateService patientService;
 
     public LocalStack(final App scope, String id, final StackProps props ){
 
@@ -48,7 +51,42 @@ public class LocalStack extends Stack {
         this.mskCluster= createMskCluster();
         this.ecsCluster = createEcsCluster();
 
+        this.authService=  createFargateService("AuthService",
+                "auth-service",
+                List.of(4005),
+                authServiceDb,
+                Map.of("JWT_SECRET","Sex8x7Pe4+YND8iywfdb4h9gfOcvF/6bnX82rFTvNtQ="));
+        authService.getNode().addDependency(authDbHealthCheck);
+        authService.getNode().addDependency(authServiceDb);
 
+
+
+       this.billingService = createFargateService("BillingService",
+               "billing-service",
+               List.of(4001,9001),
+               null,
+               null);
+
+
+        this.analyticsService = createFargateService("AnalyticsService",
+                "analytics-service",
+                List.of(4002),
+                null,
+                null);
+
+        analyticsService.getNode().addDependency(mskCluster);
+
+         this.patientService = createFargateService("PatientService",
+                 "patient-service",
+                 List.of(4000),
+                 patientServiceDb,
+                 Map.of("BILLING_SERVICE_ADDRESS","host.docker.internal",
+                         "BILLING_SERVICE_GRPC_PORT","9001"));
+
+           patientService.getNode().addDependency(patientServiceDb);
+           patientService.getNode().addDependency(patientDbHealthCheck);
+           patientService.getNode().addDependency(billingService);
+           patientService.getNode().addDependency(mskCluster);
 
     }
 
