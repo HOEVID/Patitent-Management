@@ -11,14 +11,17 @@ public class LocalStack extends Stack {
     //creating vpc
     private final Vpc vpc;
 
-    DatabaseInstance authServiceDb = createDatabase("AuthServiceDB","auth-service-db");
+    DatabaseInstance authServiceDb ;
 
-    DatabaseInstance patientServiceDb = createDatabase("PatientServiceDB","patient-service-db");
-
+    DatabaseInstance patientServiceDb ;
     public LocalStack(final App scope, String id, final StackProps props ){
 
         super(scope,id,props);
         this.vpc = createVpc();
+
+        this.authServiceDb =createDatabase("AuthServiceDB","auth-service-db");
+        this.patientServiceDb=createDatabase("PatientServiceDB","patient-service-db");
+
     }
 
     private Vpc createVpc(){
@@ -28,18 +31,21 @@ public class LocalStack extends Stack {
         .vpcName("PatientManagementVPC")
         .maxAzs(2).build();
     }
-private DatabaseInstance createDatabase(String id ,String dbName){
-return DatabaseInstance.Builder.create(this,id)
-     .engine(DatabaseInstanceEngine.postgres(
-      PostgresInstanceEngineProps.builder()
-      .version(PostgresEngineVersion.VER_17_2).build()))
-    .vpc(vpc)
-    .instanceType(InstanceType.of(InstanceClass.BURSTABLE2, InstanceSize.MICRO))
-    .allocatedStorage(20)
-    .credentials(Credentials.fromGeneratedSecret("admin_user"))
-    .databaseName(dbName)
-    .removalPolicy(RemovalPolicy.DESTROY)
-    .build();
+    private DatabaseInstance createDatabase(String id, String dbName) {
+        return DatabaseInstance.Builder.create(this, id)
+                .engine(DatabaseInstanceEngine.postgres(
+                        PostgresInstanceEngineProps.builder()
+                                .version(PostgresEngineVersion.VER_17_2)
+                                .build()))
+                .vpc(vpc)
+                .instanceType(InstanceType.of(
+                        InstanceClass.BURSTABLE2,
+                        InstanceSize.MICRO))
+                .allocatedStorage(20)
+                .credentials(Credentials.fromGeneratedSecret("admin_user"))
+                .databaseName(dbName)
+                .removalPolicy(RemovalPolicy.DESTROY)
+                .build();
 
 }
     public static void main(final String[] args){
