@@ -1,4 +1,4 @@
-GET http://localhost:4004/api/patients
+GET http://lb-28ea1fc6.elb.localhost.localstack.cloud:4004/api/patients
 Authorization: Bearer {{token}}
 
 

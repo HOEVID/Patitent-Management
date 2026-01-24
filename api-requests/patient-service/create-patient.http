@@ -1,12 +1,12 @@
 #Create a patient entity
 
-POST http://localhost:4000/patients
+POST http://lb-28ea1fc6.elb.localhost.localstack.cloud:4004/api/patients
 Content-Type: application/json
-
+Authorization: Bearer {{token}}
 
 {
-"name":"Kafka Consumer with billing account",
-  "email": "test21@kafkaConsumer.com",
+"name":"New Account using Localstack",
+  "email": "test@aws.com",
   "address": "123 street",
   "dateOfBirth": "1995-09-09",
   "registeredDate": "2010-09-09"
